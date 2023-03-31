@@ -1,5 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:users_test/Bloc/users_bloc.dart';
 import 'package:users_test/UI/LoginPage.dart';
 import 'package:users_test/UI/SignupPage.dart';
 
@@ -21,7 +23,9 @@ class MainAnsistor extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: const ListPage(),
+      home: MultiBlocProvider(providers: [
+        BlocProvider<UsersBloc>(create: (_) => UsersBloc()),
+      ], child: const UsersListPage()),
     );
   }
 }

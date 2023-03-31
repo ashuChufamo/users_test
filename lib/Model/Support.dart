@@ -10,9 +10,9 @@ class Support {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['url'] = this.url;
-    data['text'] = this.text;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['url'] = url;
+    data['text'] = text;
     return data;
   }
 }

@@ -1,5 +1,3 @@
-
-
 import 'dart:convert';
 
 import 'package:http/http.dart';
@@ -8,7 +6,7 @@ import '../Constants/constant.dart';
 
 class UserRepository {
   Future<Response> getAllUsersOnPage(int id) async {
-    var toReturn= get(
+    var toReturn = get(
       Uri.parse('${Constant.BASE_URL}/api/users?page=$id'),
     );
     print("////////////////////////////////////");
@@ -20,7 +18,7 @@ class UserRepository {
   }
 
   Future<Response> getSingleUser(int id) async {
-    var toReturn= get(
+    var toReturn = get(
       Uri.parse('${Constant.BASE_URL}/api/users/$id'),
     );
     print("////////////////////////////////////");
@@ -32,7 +30,7 @@ class UserRepository {
   }
 
   Future<Response> getUsersWithoutPage() async {
-    var toReturn= get(
+    var toReturn = get(
       Uri.parse('${Constant.BASE_URL}/api/unknown'),
     );
     print("////////////////////////////////////");
@@ -44,7 +42,7 @@ class UserRepository {
   }
 
   Future<Response> getSingleUserWithoutPage(int id) async {
-    var toReturn= get(
+    var toReturn = get(
       Uri.parse('${Constant.BASE_URL}/api/unknown/$id'),
     );
     print("////////////////////////////////////");
@@ -55,8 +53,8 @@ class UserRepository {
     return toReturn;
   }
 
-  Future<Response> createUser(String name, String job) async {
-    var toReturn= post(
+  Future<Response> createJob(String name, String job) async {
+    var toReturn = post(
       Uri.parse('${Constant.BASE_URL}/api/users'),
       body: jsonEncode({
         "name": name,
@@ -71,8 +69,8 @@ class UserRepository {
     return toReturn;
   }
 
-  Future<Response> updateUser(String name, String job, int id) async {
-    var toReturn= post(
+  Future<Response> updateJob(String name, String job, int id) async {
+    var toReturn = put(
       Uri.parse('${Constant.BASE_URL}/api/users/$id'),
       body: jsonEncode({
         "name": name,
@@ -87,8 +85,8 @@ class UserRepository {
     return toReturn;
   }
 
-  Future<Response> patchUser(String name, String job, int id) async {
-    var toReturn= patch(
+  Future<Response> patchJob(String name, String job, int id) async {
+    var toReturn = patch(
       Uri.parse('${Constant.BASE_URL}/api/users/$id'),
       body: jsonEncode({
         "name": name,
@@ -103,8 +101,8 @@ class UserRepository {
     return toReturn;
   }
 
-  Future<Response> deleteUser(int id) async {
-    var toReturn= delete(
+  Future<Response> deleteJob(int id) async {
+    var toReturn = delete(
       Uri.parse('${Constant.BASE_URL}/api/users/$id'),
     );
     print("////////////////////////////////////");
@@ -116,7 +114,7 @@ class UserRepository {
   }
 
   Future<Response> registerUser(String email, String password) async {
-    var toReturn= post(
+    var toReturn = post(
       Uri.parse('${Constant.BASE_URL}/api/register'),
       body: jsonEncode({
         "email": email,
@@ -132,7 +130,7 @@ class UserRepository {
   }
 
   Future<Response> loginUser(String email, String password) async {
-    var toReturn= post(
+    var toReturn = post(
       Uri.parse('${Constant.BASE_URL}/api/register'),
       body: jsonEncode({
         "email": email,
@@ -148,7 +146,7 @@ class UserRepository {
   }
 
   Future<Response> getDelayedUsers(int delay) async {
-    var toReturn= get(
+    var toReturn = get(
       Uri.parse('${Constant.BASE_URL}/api/users?delay=$delay'),
     );
     print("////////////////////////////////////");
