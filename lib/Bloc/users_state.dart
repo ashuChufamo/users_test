@@ -25,6 +25,30 @@ class UsersListOnPageSuccessful extends UsersState {
   UsersListOnPageSuccessful(this.usersInPage);
 }
 
+class GetAllUnknownSuccessful extends UsersState {
+  final UnKnown allUnknown;
+
+  GetAllUnknownSuccessful(this.allUnknown);
+}
+
+class GetSingleUnknownSuccessful extends UsersState {
+  final Data singleUnknown;
+
+  GetSingleUnknownSuccessful(this.singleUnknown);
+}
+
+class UnknownFailed extends UsersState {
+  final String message;
+
+  UnknownFailed(this.message);
+}
+
+class UsersListOnPageWithDelaySuccessful extends UsersState {
+  final UsersInPage usersInPage;
+
+  UsersListOnPageWithDelaySuccessful(this.usersInPage);
+}
+
 class UsersListOnPageFailed extends UsersState {
   final String message;
 

@@ -1,31 +1,31 @@
+import 'Data.dart';
 import 'Support.dart';
-import 'User.dart';
 
-class UsersInPage {
+class UnKnown {
   int? page;
   int? perPage;
   int? total;
   int? totalPages;
-  List<User>? usersList;
+  List<Data>? data;
   Support? support;
 
-  UsersInPage(
+  UnKnown(
       {this.page,
       this.perPage,
       this.total,
       this.totalPages,
-      this.usersList,
+      this.data,
       this.support});
 
-  UsersInPage.fromJson(Map<String, dynamic> json) {
+  UnKnown.fromJson(Map<String, dynamic> json) {
     page = json['page'];
     perPage = json['per_page'];
     total = json['total'];
     totalPages = json['total_pages'];
     if (json['data'] != null) {
-      usersList = <User>[];
+      data = <Data>[];
       json['data'].forEach((v) {
-        usersList!.add(User.fromJson(v));
+        data!.add(Data.fromJson(v));
       });
     }
     support =
@@ -38,8 +38,8 @@ class UsersInPage {
     data['per_page'] = perPage;
     data['total'] = total;
     data['total_pages'] = totalPages;
-    if (usersList != null) {
-      data['data'] = usersList!.map((v) => v.toJson()).toList();
+    if (this.data != null) {
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
     if (support != null) {
       data['support'] = support!.toJson();

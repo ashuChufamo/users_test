@@ -1,12 +1,11 @@
-import 'dart:async';
 import 'dart:convert';
-
 import 'package:bloc/bloc.dart';
 import 'package:http/http.dart';
 import 'package:meta/meta.dart';
 import 'package:users_test/Model/Job.dart';
+import 'package:users_test/Model/Unknown.dart';
 import 'package:users_test/Model/User.dart';
-
+import '../Model/Data.dart';
 import '../Model/UsersWithPage.dart';
 import '../Repositories/user_repositary.dart';
 
@@ -30,10 +29,10 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
             emit(UsersListOnPageSuccessful(
                 UsersInPage.fromJson(jsonDecode(res.body))));
           } else {
-            emit(UsersListOnPageFailed(jsonDecode(res.body)));
+            emit(UsersListOnPageFailed(res.body));
           }
         } catch (e) {
-          emit(UsersListOnPageFailed(jsonDecode(e.toString())));
+          emit(UsersListOnPageFailed(e.toString()));
         }
       }
 
@@ -43,43 +42,44 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
         try {
           res = await userRepository.getSingleUser(event.userId);
           if (res.statusCode == 200) {
-            emit(UserSuccessful(User.fromJson(jsonDecode(res.body))));
+            emit(UserSuccessful(User.fromJson(jsonDecode(res.body)['data'])));
           } else {
-            emit(UserFailed(jsonDecode(res.body)));
+            emit(UserFailed(res.body));
           }
         } catch (e) {
-          emit(UserFailed(jsonDecode(e.toString())));
+          emit(UserFailed(e.toString()));
         }
       }
 
-      if (event is GetUsersWithoutPage) {
+      if (event is GetAllUnknown) {
         emit(UsersLoading());
         Response res;
         try {
           res = await userRepository.getUsersWithoutPage();
           if (res.statusCode == 200) {
-            emit(UsersListOnPageSuccessful(
-                UsersInPage.fromJson(jsonDecode(res.body))));
+            emit(GetAllUnknownSuccessful(
+                UnKnown.fromJson(jsonDecode(res.body))));
           } else {
-            emit(UsersListOnPageFailed(jsonDecode(res.body)));
+            emit(UnknownFailed(res.body));
           }
         } catch (e) {
-          emit(UsersListOnPageFailed(jsonDecode(e.toString())));
+          emit(UnknownFailed(e.toString()));
         }
       }
 
-      if (event is GetSingleUserWithoutPage) {
+      if (event is GetSingleUnKnown) {
         emit(UsersLoading());
         Response res;
         try {
           res = await userRepository.getSingleUserWithoutPage(event.userId);
           if (res.statusCode == 200) {
-            emit(UserSuccessful(User.fromJson(jsonDecode(res.body))));
+            emit(GetSingleUnknownSuccessful(
+                Data.fromJson(jsonDecode(res.body)['data'])));
           } else {
-            emit(UserFailed(jsonDecode(res.body)));
+            emit(UnknownFailed(res.body));
           }
         } catch (e) {
-          emit(UserFailed(jsonDecode(e.toString())));
+          emit(UnknownFailed(e.toString()));
         }
       }
 
@@ -91,10 +91,10 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
           if (res.statusCode == 201) {
             emit(CreateJobSuccessful(Job.fromJson(jsonDecode(res.body))));
           } else {
-            emit(JobOpreationFailed(jsonDecode(res.body)));
+            emit(JobOpreationFailed(res.body));
           }
         } catch (e) {
-          emit(JobOpreationFailed(jsonDecode(e.toString())));
+          emit(JobOpreationFailed(e.toString()));
         }
       }
 
@@ -107,10 +107,10 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
           if (res.statusCode == 200) {
             emit(UpdateJobSuccessful(Job.fromJson(jsonDecode(res.body))));
           } else {
-            emit(JobOpreationFailed(jsonDecode(res.body)));
+            emit(JobOpreationFailed(res.body));
           }
         } catch (e) {
-          emit(JobOpreationFailed(jsonDecode(e.toString())));
+          emit(JobOpreationFailed(e.toString()));
         }
       }
 
@@ -123,10 +123,10 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
           if (res.statusCode == 200) {
             emit(PatchJobSuccessful(Job.fromJson(jsonDecode(res.body))));
           } else {
-            emit(JobOpreationFailed(jsonDecode(res.body)));
+            emit(JobOpreationFailed(res.body));
           }
         } catch (e) {
-          emit(JobOpreationFailed(jsonDecode(e.toString())));
+          emit(JobOpreationFailed(e.toString()));
         }
       }
 
@@ -138,10 +138,10 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
           if (res.statusCode == 204) {
             emit(DeleteJobSuccessful());
           } else {
-            emit(JobOpreationFailed(jsonDecode(res.body)));
+            emit(JobOpreationFailed(res.body));
           }
         } catch (e) {
-          emit(JobOpreationFailed(jsonDecode(e.toString())));
+          emit(JobOpreationFailed(e.toString()));
         }
       }
 
@@ -154,10 +154,10 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
             emit(RegisterSuccessful(
                 jsonDecode(res.body)["id"], jsonDecode(res.body)["token"]));
           } else {
-            emit(RegisterFailed(jsonDecode(res.body)));
+            emit(RegisterFailed(res.body));
           }
         } catch (e) {
-          emit(RegisterFailed(jsonDecode(e.toString())));
+          emit(RegisterFailed(e.toString()));
         }
       }
 
@@ -166,13 +166,13 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
         Response res;
         try {
           res = await userRepository.loginUser(event.email, event.password);
-          if (res.statusCode == 201) {
+          if (res.statusCode == 200) {
             emit(LoginSuccessful(jsonDecode(res.body)["token"]));
           } else {
-            emit(LoginFailed(jsonDecode(res.body)));
+            emit(LoginFailed(res.body));
           }
         } catch (e) {
-          emit(LoginFailed(jsonDecode(e.toString())));
+          emit(LoginFailed(e.toString()));
         }
       }
 
@@ -182,13 +182,13 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
         try {
           res = await userRepository.getDelayedUsers(event.delay);
           if (res.statusCode == 200) {
-            emit(UsersListOnPageSuccessful(
+            emit(UsersListOnPageWithDelaySuccessful(
                 UsersInPage.fromJson(jsonDecode(res.body))));
           } else {
-            emit(UsersListOnPageFailed(jsonDecode(res.body)));
+            emit(UsersListOnPageFailed(res.body));
           }
         } catch (e) {
-          emit(UsersListOnPageFailed(jsonDecode(e.toString())));
+          emit(UsersListOnPageFailed(e.toString()));
         }
       }
     });

@@ -15,12 +15,12 @@ class GetSingleUser extends UsersEvent {
   GetSingleUser(this.userId);
 }
 
-class GetUsersWithoutPage extends UsersEvent {}
+class GetAllUnknown extends UsersEvent {}
 
-class GetSingleUserWithoutPage extends UsersEvent {
+class GetSingleUnKnown extends UsersEvent {
   final int userId;
 
-  GetSingleUserWithoutPage(this.userId);
+  GetSingleUnKnown(this.userId);
 }
 
 class CreateJob extends UsersEvent {

@@ -6,154 +6,85 @@ import '../Constants/constant.dart';
 
 class UserRepository {
   Future<Response> getAllUsersOnPage(int id) async {
-    var toReturn = get(
+    return get(
       Uri.parse('${Constant.BASE_URL}/api/users?page=$id'),
     );
-    print("////////////////////////////////////");
-    toReturn.then((value) => print(value.statusCode));
-    toReturn.then((value) => print(value.body));
-    toReturn.then((value) => print(value.statusCode));
-    print("////////////////////////////////////");
-    return toReturn;
   }
 
   Future<Response> getSingleUser(int id) async {
-    var toReturn = get(
+    return get(
       Uri.parse('${Constant.BASE_URL}/api/users/$id'),
     );
-    print("////////////////////////////////////");
-    toReturn.then((value) => print(value.statusCode));
-    toReturn.then((value) => print(value.body));
-    toReturn.then((value) => print(value.statusCode));
-    print("////////////////////////////////////");
-    return toReturn;
   }
 
   Future<Response> getUsersWithoutPage() async {
-    var toReturn = get(
+    return get(
       Uri.parse('${Constant.BASE_URL}/api/unknown'),
     );
-    print("////////////////////////////////////");
-    toReturn.then((value) => print(value.statusCode));
-    toReturn.then((value) => print(value.body));
-    toReturn.then((value) => print(value.statusCode));
-    print("////////////////////////////////////");
-    return toReturn;
   }
 
   Future<Response> getSingleUserWithoutPage(int id) async {
-    var toReturn = get(
+    return get(
       Uri.parse('${Constant.BASE_URL}/api/unknown/$id'),
     );
-    print("////////////////////////////////////");
-    toReturn.then((value) => print(value.statusCode));
-    toReturn.then((value) => print(value.body));
-    toReturn.then((value) => print(value.statusCode));
-    print("////////////////////////////////////");
-    return toReturn;
   }
 
   Future<Response> createJob(String name, String job) async {
-    var toReturn = post(
+    return post(
       Uri.parse('${Constant.BASE_URL}/api/users'),
       body: jsonEncode({
         "name": name,
         "job": job,
       }),
     );
-    print("////////////////////////////////////");
-    toReturn.then((value) => print(value.statusCode));
-    toReturn.then((value) => print(value.body));
-    toReturn.then((value) => print(value.statusCode));
-    print("////////////////////////////////////");
-    return toReturn;
   }
 
   Future<Response> updateJob(String name, String job, int id) async {
-    var toReturn = put(
+    return put(
       Uri.parse('${Constant.BASE_URL}/api/users/$id'),
       body: jsonEncode({
         "name": name,
         "job": job,
       }),
     );
-    print("////////////////////////////////////");
-    toReturn.then((value) => print(value.statusCode));
-    toReturn.then((value) => print(value.body));
-    toReturn.then((value) => print(value.statusCode));
-    print("////////////////////////////////////");
-    return toReturn;
   }
 
   Future<Response> patchJob(String name, String job, int id) async {
-    var toReturn = patch(
+    return patch(
       Uri.parse('${Constant.BASE_URL}/api/users/$id'),
       body: jsonEncode({
         "name": name,
         "job": job,
       }),
     );
-    print("////////////////////////////////////");
-    toReturn.then((value) => print(value.statusCode));
-    toReturn.then((value) => print(value.body));
-    toReturn.then((value) => print(value.statusCode));
-    print("////////////////////////////////////");
-    return toReturn;
   }
 
   Future<Response> deleteJob(int id) async {
-    var toReturn = delete(
+    return delete(
       Uri.parse('${Constant.BASE_URL}/api/users/$id'),
     );
-    print("////////////////////////////////////");
-    toReturn.then((value) => print(value.statusCode));
-    toReturn.then((value) => print(value.body));
-    toReturn.then((value) => print(value.statusCode));
-    print("////////////////////////////////////");
-    return toReturn;
   }
 
   Future<Response> registerUser(String email, String password) async {
-    var toReturn = post(
+    return post(
       Uri.parse('${Constant.BASE_URL}/api/register'),
       body: jsonEncode({
         "email": email,
         "password": password,
       }),
     );
-    print("////////////////////////////////////");
-    toReturn.then((value) => print(value.statusCode));
-    toReturn.then((value) => print(value.body));
-    toReturn.then((value) => print(value.statusCode));
-    print("////////////////////////////////////");
-    return toReturn;
   }
 
   Future<Response> loginUser(String email, String password) async {
-    var toReturn = post(
-      Uri.parse('${Constant.BASE_URL}/api/register'),
-      body: jsonEncode({
-        "email": email,
-        "password": password,
-      }),
+    return post(
+      Uri.parse('${Constant.BASE_URL}/api/login'),
+      body: '{"email":"jviviv","password":"uvuvubu"}',
     );
-    print("////////////////////////////////////");
-    toReturn.then((value) => print(value.statusCode));
-    toReturn.then((value) => print(value.body));
-    toReturn.then((value) => print(value.statusCode));
-    print("////////////////////////////////////");
-    return toReturn;
   }
 
   Future<Response> getDelayedUsers(int delay) async {
-    var toReturn = get(
+    return get(
       Uri.parse('${Constant.BASE_URL}/api/users?delay=$delay'),
     );
-    print("////////////////////////////////////");
-    toReturn.then((value) => print(value.statusCode));
-    toReturn.then((value) => print(value.body));
-    toReturn.then((value) => print(value.statusCode));
-    print("////////////////////////////////////");
-    return toReturn;
   }
 }

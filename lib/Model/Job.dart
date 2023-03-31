@@ -10,7 +10,7 @@ class Job {
     name = json['name'];
     job = json['job'];
     id = json['id'];
-    createdAt = json['createdAt'];
+    createdAt = json['createdAt'] ?? json['updatedAt'];
   }
 
   Map<String, dynamic> toJson() {
